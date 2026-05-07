@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Virtual Drum Kit</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>🥁 THE DRUM ROOM</h1>
+<p class="subtitle">A space to listen, play, and groove</p>
+
+<div class="instructions">
+  <div class="mode-card">
+    <div class="mode-icon">🖐️</div>
+    <div class="mode-text">
+      <strong>Play Freely</strong>
+      <span>Click the drums or use your keyboard to jam.</span>
+    </div>
+  </div>
+  
+  <div class="mode-card">
+    <div class="mode-icon">🎧</div>
+    <div class="mode-text">
+      <strong>Learn & Replicate</strong>
+      <span>Pick a pattern below, hit play, and play along.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONTROLS PANEL
+============================================================ -->
+<div class="panel">
+
+  <!-- Pattern selector row -->
+  <div class="panel-row">
+    <span class="panel-label">Difficulty</span>
+    <select id="sel-difficulty">
+      <option value="beginner">Beginner</option>
+      <option value="learner">Learner</option>
+      <option value="expert">Expert</option>
+    </select>
+
+    <span class="panel-label">Pattern</span>
+    <select id="sel-pattern"></select>
+  </div>
+  <div class="panel-row">
+    <button id="btn-play-pattern">▶ Play Pattern</button>
+    <button id="btn-stop-pattern" disabled>■ Stop</button>
+  </div>
+  
+
+  <!-- Pattern description -->
+  <div id="pattern-info">Select a pattern above to see its description.</div>
+
+  <hr class="divider">
+
+  <!-- Record row -->
+  <div class="panel-row">
+    <span class="panel-label">Record</span>
+    <button id="btn-record">⏺ Record</button>
+    <button id="btn-stop-record" disabled>■ Stop Rec</button>
+    <button id="btn-play-recording" disabled>▶ Play Recording</button>
+    <button id="btn-clear-recording" disabled>🗑 Clear</button>
+    <span class="status-pill" id="rec-status">Idle</span>
+  </div>
+
+</div><!-- /.panel -->
+
+<!-- ============================================================
+     DRUM STAGE
+============================================================ -->
+<div class="stage" id="stage">
+
+  <div class="drum" id="pad-crash"    data-drum="crash">
+    <span class="badge">Q</span>
+  </div>
+
+  <div class="drum" id="pad-hihat"   data-drum="hihat">
+    <span class="badge">D</span>
+  </div>
+
+  <div class="drum" id="pad-tom1"    data-drum="tom1">
+    <span class="badge">F</span>
+  </div>
+
+  <div class="drum" id="pad-tom2"    data-drum="tom2">
+    <span class="badge">G</span>
+  </div>
+
+  <div class="drum" id="pad-ride"    data-drum="ride">
+    <span class="badge">R</span>
+  </div>
+
+  <div class="drum" id="pad-snare"   data-drum="snare">
+    <span class="badge">S</span>
+  </div>
+
+  <div class="drum" id="pad-floortom" data-drum="floortom">
+    <span class="badge">H</span>
+  </div>
+
+  <div class="drum" id="pad-kick"    data-drum="kick">
+    <span class="badge">A</span>
+  </div>
+
+</div><!-- /.stage -->
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

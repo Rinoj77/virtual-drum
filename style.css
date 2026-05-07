@@ -1,0 +1,354 @@
+/* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0d0d0f;
+    --surface:   #16161c;
+    --border:    #2a2a38;
+    --accent:    #7b5ef8;
+    --accent2:   #e05a7a;
+    --text:      #e8e8f0;
+    --muted:     #7b7b9c;
+    --glow-hit:  0 0 18px 6px rgba(123,94,248,0.85);
+    --glow-kick: 0 0 22px 8px rgba(224,90,122,0.85);
+    --radius:    10px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 12px 32px;
+    user-select: none;
+  }
+
+  h1 { font-size: 1.5rem; letter-spacing: .12em; color: var(--accent); margin-bottom: 4px; }
+  .subtitle { font-size: .78rem; color: var(--muted); margin-bottom: 18px; letter-spacing: .06em; }
+
+  /* ============================================================
+     DRUM STAGE — top-down grid layout
+  ============================================================ */
+  .stage {
+    background-image: url('./assets/images/drum-kit-living-room.png');
+    background-size: contain; /* Or 'cover', depending on image dimensions */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #252525;
+    position: relative;
+    width: 640px;
+    height: 400px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin-bottom: 22px;
+    overflow: visible;
+  }
+
+  /* Each pad is absolutely positioned */
+  .drum {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%; /* Makes the clickable area a circle */
+    /* TEMPORARY: Add a border so you can see the hotspots while you position them 
+  border: 2px solid rgba(255, 0, 0, 0.5);*/
+  }
+
+  .drum img {
+    display: block;
+    pointer-events: none;
+    /* drop-shadow will become the "hit" glow — applied via .hit class */
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+    transition: filter .12s ease, transform .12s ease;
+  }
+
+  /* Hit animation — added/removed via JS */
+  .drum.hit { animation: hotspotHit .18s ease forwards;}
+  .drum.hit-kick { animation: hotspotHit .18s ease forwards;}
+
+  /* Create a semi-transparent flash and a glowing box-shadow */
+@keyframes hotspotHit {
+  0%   { background-color: rgba(123,94,248, 0); box-shadow: 0 0 0 transparent; }
+  40%  { background-color: rgba(123,94,248, 0.4); box-shadow: var(--glow-hit); }
+  100% { background-color: rgba(123,94,248, 0); box-shadow: 0 0 0 transparent; }
+}
+
+@keyframes hotspotHitKick {
+  0%   { background-color: rgba(224,90,122, 0); box-shadow: 0 0 0 transparent; }
+  40%  { background-color: rgba(224,90,122, 0.4); box-shadow: var(--glow-kick); }
+  100% { background-color: rgba(224,90,122, 0); box-shadow: 0 0 0 transparent; }
+}
+
+  @keyframes drumHit {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(.93); }
+    100% { transform: scale(1); }
+  }
+
+  /* Hotkey badge */
+  .drum .badge {
+    margin-top: 8px;
+    background: rgba(6, 0, 31, 0.791);
+    color: #ffffff;
+    font-size: .70rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .drum .label {
+    font-size: .62rem;
+    color: var(--muted);
+    margin-top: 2px;
+    pointer-events: none;
+    letter-spacing: .04em;
+  }
+
+  /* ── Individual drum positions ── */
+  #pad-crash     { 
+    left: 110px; 
+    top: 35px; 
+    width: 140px; 
+    height: 90px;}
+
+  #pad-hihat     { 
+    left: 68px; 
+    top: 130px;
+    width: 120px;
+    height: 90px;
+  }
+  
+  #pad-tom1      { 
+    left: 242px; 
+    top:  90px; 
+    width: 80px; 
+    height: 80px;
+  }
+
+  #pad-tom2      { 
+    left: 344px; 
+    top:  90px; 
+    width: 80px; 
+    height: 80px;
+  }
+
+  #pad-ride      { 
+    right: 50px; 
+    top:  58px; 
+    width: 160px; 
+    height: 120px;
+  }
+
+  #pad-snare     { 
+    left: 190px; 
+    top: 170px; 
+    width: 110px; 
+    height: 110px;
+  }
+
+  #pad-floortom  { 
+    right: 112px; 
+    top: 180px; 
+    width: 130px; 
+    height: 110px;
+  }
+
+  #pad-kick      { 
+    left: 46%; 
+    top: 265px; 
+    width: 65px; 
+    height: 90px;
+  }
+
+
+  /* ============================================================
+   ONBOARDING INSTRUCTIONS
+============================================================ */
+.instructions {
+  width: 640px;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.mode-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-icon {
+  font-size: 1.5rem;
+  background: var(--bg);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.mode-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mode-text strong {
+  font-size: 0.85rem;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+
+.mode-text span {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+  /* ============================================================
+     CONTROLS PANEL
+  ============================================================ */
+  .panel {
+    width: 640px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .panel-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .panel-label {
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    min-width: 50px;
+  }
+
+  select {
+    background: #1e1e2a;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: .82rem;
+    cursor: pointer;
+    outline: none;
+  }
+  select:focus { border-color: var(--accent); }
+
+  button {
+    background: #1e1e2a;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+    white-space: nowrap;
+  }
+  button:hover { background: #28283a; border-color: var(--accent); }
+
+  button.active  { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.danger  { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+
+  .status-pill {
+    font-size: .72rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: transparent;
+  }
+  .status-pill.recording { border-color: var(--accent2); color: var(--accent2); animation: pulse 1s infinite; }
+  .status-pill.playing   { border-color: #5ef8a0; color: #5ef8a0; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* Pattern description strip */
+  #pattern-info {
+    background: rgba(123, 94, 248, 0.08); /* Faint purple background */
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 50px;
+  }
+
+  .track-icon {
+    font-size: 1.8rem;
+    background: var(--bg);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+
+  .track-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .track-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text); /* Pure white text, no longer muted */
+    letter-spacing: 0.03em;
+  }
+
+  .track-desc {
+    font-size: 0.75rem;
+    color: #a0a0b5; /* Slightly lighter than muted, highly legible */
+  }
+
+  .track-desc strong {
+    color: var(--accent2); /* Make the song name pop with your pink accent */
+  }
+
+  /* ============================================================
+   VINYL SPIN ANIMATION
+============================================================ */
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* We will add and remove this class using JavaScript */
+.track-icon.spin {
+  animation: spinVinyl 5s linear infinite;
+}
+
+  .divider { border: none; border-top: 1px solid var(--border); }
