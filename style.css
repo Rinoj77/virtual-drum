@@ -28,8 +28,10 @@
     user-select: none;
   }
 
+
   h1 { font-size: 1.5rem; letter-spacing: .12em; color: var(--accent); margin-bottom: 4px; }
   .subtitle { font-size: .78rem; color: var(--muted); margin-bottom: 18px; letter-spacing: .06em; }
+
 
   /* ============================================================
      DRUM STAGE — top-down grid layout
@@ -358,27 +360,90 @@
   .divider { border: none; border-top: 1px solid var(--border); }
 
 
-  /* ============================================================
-   MOBILE RESPONSIVENESS
+/* ============================================================
+   FULLSCREEN BUTTON & MODE
+============================================================ */
+/* ============================================================
+   FULLSCREEN BUTTON & MODE
+============================================================ */
+/* 1. Default State (Expand Button at the bottom) */
+.fullscreen-btn {
+  position: absolute;
+  bottom: 12px; /* Positioned at the bottom */
+  top: auto;    /* Clears any top positioning */
+  right: 12px;
+  background: rgba(22, 22, 28, 0.8);
+  color: var(--text);
+  font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect for the default button */
+.fullscreen-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 2. Fullscreen State (Close Button at the top) */
+.stage.fullscreen-mode .fullscreen-btn {
+  top: 12px;    /* Moves it to the top */
+  bottom: auto; /* Clears the bottom positioning */
+}
+
+/* Hover effect for the close button */
+.stage.fullscreen-mode .fullscreen-btn:hover {
+  background: var(--accent2);
+}
+
+/* Base Fullscreen State (for Desktops or Landscape Phones) */
+.stage.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  z-index: 9999;
+  border-radius: 0;
+  margin: 0;
+  background-color: #111; /* Darker background to hide the rest of the site */
+}
+
+/* If the phone is held vertically, rotate the stage 90 degrees! */
+@media (orientation: portrait) {
+  .stage.fullscreen-mode {
+    top: 50%;
+    left: 50%;
+    width: 100vh;  /* Swap height and width */
+    height: 100vw;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVENESS (Simple Reorder)
 ============================================================ */
 @media (max-width: 600px) {
-  /* Stack the instruction cards vertically */
-  .instructions {
-    flex-direction: column;
-  }
+  /* Swap the visual order so the Stage is above the Panel */
+  h1 { order: 1; }
+  .subtitle { order: 2; }
+  .instructions { order: 3; flex-direction: column; }
+  .stage { order: 4; margin-bottom: 20px; }
+  .panel { order: 5; margin-bottom: 0; }
 
-  /* Make the pattern dropdowns and buttons take up full width */
-  .panel-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  /* Stack the panel rows neatly */
+  .panel-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .panel-label { margin-bottom: -4px; }
   
-  .panel-label {
-    margin-bottom: -6px; /* Pulls the label closer to the dropdown */
-  }
-
-  /* Shrink the drum hit badges so they don't cover the whole drum on tiny screens */
-  .drum .badge {
-    transform: scale(0.8);
-  }
+  /* Shrink the badges slightly on mobile */
+  .drum .badge { transform: scale(0.8); }
 }

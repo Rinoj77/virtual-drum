@@ -800,3 +800,22 @@ btnClearRec.addEventListener('click',  () => RecordEngine.clear());
   // Preload audio buffers (silently falls back to synth if files absent)
   await AudioEngine.preload();
 })();
+
+
+/* ================================================================
+   SECTION 11 — FULLSCREEN STAGE LOGIC
+================================================================ */
+const btnFullscreen = document.getElementById('btn-fullscreen');
+const stageContainer = document.getElementById('stage');
+
+btnFullscreen.addEventListener('click', () => {
+  // Toggle the class that handles the resizing and rotation
+  stageContainer.classList.toggle('fullscreen-mode');
+  
+  // Change the icon from "Expand" to "Shrink"
+  if (stageContainer.classList.contains('fullscreen-mode')) {
+    btnFullscreen.innerHTML = '✖'; // Close icon
+  } else {
+    btnFullscreen.innerHTML = '⛶'; // Expand icon
+  }
+});

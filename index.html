@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Virtual Drum Kit</title>
+<title>The Drum Room</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -34,7 +34,6 @@
 ============================================================ -->
 <div class="panel">
 
-  <!-- Pattern selector row -->
   <div class="panel-row">
     <span class="panel-label">Difficulty</span>
     <select id="sel-difficulty">
@@ -50,14 +49,11 @@
     <button id="btn-play-pattern">▶ Play Pattern</button>
     <button id="btn-stop-pattern" disabled>■ Stop</button>
   </div>
-  
 
-  <!-- Pattern description -->
   <div id="pattern-info">Select a pattern above to see its description.</div>
 
   <hr class="divider">
 
-  <!-- Record row -->
   <div class="panel-row">
     <span class="panel-label">Record</span>
     <button id="btn-record">⏺ Record</button>
@@ -67,49 +63,21 @@
     <span class="status-pill" id="rec-status">Idle</span>
   </div>
 
-</div><!-- /.panel -->
-
-<!-- ============================================================
+  <!-- ============================================================
      DRUM STAGE
 ============================================================ -->
-<div class="stage" id="stage">
+</div><div class="stage" id="stage">
 
-  <div class="drum" id="pad-crash"    data-drum="crash">
-    <span class="badge">Q</span>
-  </div>
-
-  <div class="drum" id="pad-hihat"   data-drum="hihat">
-    <span class="badge">D</span>
-  </div>
-
-  <div class="drum" id="pad-tom1"    data-drum="tom1">
-    <span class="badge">F</span>
-  </div>
-
-  <div class="drum" id="pad-tom2"    data-drum="tom2">
-    <span class="badge">G</span>
-  </div>
-
-  <div class="drum" id="pad-ride"    data-drum="ride">
-    <span class="badge">R</span>
-  </div>
-
-  <div class="drum" id="pad-snare"   data-drum="snare">
-    <span class="badge">S</span>
-  </div>
-
-  <div class="drum" id="pad-floortom" data-drum="floortom">
-    <span class="badge">H</span>
-  </div>
-
-  <div class="drum" id="pad-kick"    data-drum="kick">
-    <span class="badge">A</span>
-  </div>
-
-</div><!-- /.stage -->
-
-
-
+  <div class="drum" id="pad-crash" data-drum="crash"><span class="badge">Q</span></div>
+  <div class="drum" id="pad-hihat" data-drum="hihat"><span class="badge">D</span></div>
+  <div class="drum" id="pad-tom1" data-drum="tom1"><span class="badge">F</span></div>
+  <div class="drum" id="pad-tom2" data-drum="tom2"><span class="badge">G</span></div>
+  <div class="drum" id="pad-ride" data-drum="ride"><span class="badge">R</span></div>
+  <div class="drum" id="pad-snare" data-drum="snare"><span class="badge">S</span></div>
+  <div class="drum" id="pad-floortom" data-drum="floortom"><span class="badge">H</span></div>
+  <div class="drum" id="pad-kick" data-drum="kick"><span class="badge">A</span></div>
+  <button id="btn-fullscreen" class="fullscreen-btn">⛶</button>
+</div>
 
 <script src="script.js"></script>
 </body>
