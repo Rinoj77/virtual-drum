@@ -1,6 +1,6 @@
 # 🥁 The Drum Room
 
-Welcome to The Drum Room! I built this first as a player to go into my portfolio but decided for now to keep it as a side project. 
+Welcome to The Drum Room! I built this first as a HTML player to go inside my portfolio but decided (for now) to keep it as a side project. 
 This is a fully playable, browser-based virtual drum kit. It's a space created to let you just listen, play, and groove.
 
 Created with the help of Claude and Gemini.
@@ -13,5 +13,10 @@ Created with the help of Claude and Gemini.
 ## 🛠️ Tech Stack
 * **HTML5** * **Vanilla CSS3** (Custom animations & responsive UI)
 * **Vanilla JavaScript** (Web Audio API & timing logic)
+
+## 🙏 Credits
+* **AI Assistants**  Code and Logic structured with the help of Claude and Gemini.
+* **Visuals** Drum kit image sourced from nano banana.
+* **Audio** Drum samples sourced from https://sampleswap.org/ 
 
 Happy drumming! 🤘
